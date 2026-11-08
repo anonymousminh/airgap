@@ -221,7 +221,7 @@ let attacks = [], results = {};
   $("#tiles").innerHTML = attacks.map(a => `
     <div class="tile glow" id="t-${a.id}"><i class="scan"></i>
       <div class="tile-h"><span class="ico">${icon(a.id)}</span><div><h3>${esc(a.id)}</h3><span class="nm">${esc(a.name)}</span></div><span class="badge">READY</span></div>
-      <p><b>Tries:</b> ${esc(a.tries)}</p><p><b>Stopped by:</b> ${esc(a.stops)}</p>
+      <p><b>Tries:</b> ${esc(a.tries)}</p><p><b>Run as:</b> code a hijacked model would write</p><p><b>Stopped by:</b> ${esc(a.stops)}</p>
       <div class="extra"></div><div class="ev" hidden></div>
       <div class="tile-btns"><button class="btn ghost peek">Show poisoned CSV + payload</button><button class="btn ghost rcpt" hidden>View signed receipt</button></div>
       <pre hidden>${esc("# poisoned CSV (what the attacker planted)\n" + a.poisoned_csv + "\n# payload a hijacked model would write\n" + a.payload)}</pre>

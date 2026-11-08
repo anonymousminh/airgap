@@ -56,6 +56,7 @@
 <!-- DARK BAND: attack gallery switcher -->
 <section class="dark" id="gallery"><div class="wrap">
   <div class="sh center lt"><h2>Attack it yourself</h2><p>Assume the model is fully compromised. Pick an attack and run it against the live sandbox.</p></div>
+  <div class="assume"><b>What this tests:</b> we skip the AI and run the attack code a hijacked model <i>would</i> write. This tests the <b>sandbox</b>, not the model. It shows what happens <i>if</i> the AI is tricked.</div><div class="pd"><div class="pd-i pd-ok"><b>Proves</b><p>The sandbox policy holds against these six attack classes, with signed evidence.</p></div><div class="pd-i pd-no"><b>Doesn’t prove</b><p>That the AI won’t be fooled, or that no other attack exists.</p></div><div class="pd-i pd-same"><b>Same code path</b><p>These runs use the same sandbox and settings as real analyses.</p></div></div>
   <div class="sw">
     <div class="sw-l">
       <div class="sw-top"><span class="mono score" id="galScore"><b id="scN">0</b>/6 contained · <b>0</b> B exfiltrated</span><button class="btn light sm" id="runAll">Run all six</button></div>

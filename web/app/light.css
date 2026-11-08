@@ -55,3 +55,9 @@ table.kv td{border-top-color:#eef0f2}table.kv td:first-child{color:#6b7280}.sig{
 pre.term-body,.term-body{background:#111827;color:#cfe0ff;border:0;border-radius:0}
 .term{overflow:hidden}
 .drawer:not(.open){box-shadow:none}
+
+/* transparency: what the Attack Lab tests and doesn't */
+.assume{max-width:900px;margin:0 0 14px;border:1px solid #e5e7eb;border-left:3px solid #d97706;background:#fffbeb;border-radius:14px;padding:14px 18px;color:#374151;font-size:14.5px;line-height:1.55}.assume b{color:#111827;font-weight:600}.assume i{font-style:normal;color:#b45309;font-weight:500}
+.pd{max-width:900px;margin:0 0 16px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}@media(max-width:900px){.pd{grid-template-columns:1fr}}
+.pd-i{border:1px solid #e5e7eb;background:#fff;border-radius:14px;padding:13px 16px}.pd-i b{display:block;font:600 12px var(--mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px}.pd-i p{font-size:13.5px;color:#4b5563;line-height:1.5;margin:0}
+.pd-ok b{color:#047857}.pd-no b{color:#b45309}.pd-same b{color:#1d4ed8}

@@ -57,7 +57,7 @@ async function runOne(id) {
 (async function () {
   let list = []; try { list = await (await fetch("/api/attacks")).json(); } catch { return; }
   list.forEach(a => attacks[a.id] = a);
-  $("#swList").innerHTML = ORDER.filter(id => attacks[id]).map(id => `<div class="it" id="it-${id}"><button class="it-h"><span class="it-ic">${icon(id)}</span>${esc(attacks[id].name)}<span class="it-s">READY</span></button><div class="it-b"><p>${esc(DESC[id])}</p><p><b>Stopped by:</b> ${esc(attacks[id].stops)}</p></div></div>`).join("");
+  $("#swList").innerHTML = ORDER.filter(id => attacks[id]).map(id => `<div class="it" id="it-${id}"><button class="it-h"><span class="it-ic">${icon(id)}</span>${esc(attacks[id].name)}<span class="it-s">READY</span></button><div class="it-b"><p>${esc(DESC[id])}</p><p><b>Run as:</b> the code a compromised model would write</p><p><b>Stopped by:</b> ${esc(attacks[id].stops)}</p></div></div>`).join("");
   ORDER.forEach(id => $("#it-" + id + " .it-h").onclick = () => show(id));
   show("EXFIL-HTTP");
 })();
