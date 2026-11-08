@@ -15,8 +15,8 @@ addEventListener("hashchange", route);
 
 /* ---------- receipt certificate ---------- */
 let currentReceipt = null;
-const SEAL = ok => `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${ok ? "#2dd4bf" : "#fb7185"}"/><stop offset="1" stop-color="${ok ? "#7dd3fc" : "#fda4af"}"/></linearGradient></defs>
-  <circle cx="60" cy="60" r="56" fill="rgba(45,212,191,.06)" stroke="url(#sg)" stroke-width="2" stroke-dasharray="3 5"/>
+const SEAL = ok => `<svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${ok ? "#3ddc97" : "#fb7185"}"/><stop offset="1" stop-color="${ok ? "#9af2c8" : "#fda4af"}"/></linearGradient></defs>
+  <circle cx="60" cy="60" r="56" fill="rgba(61,220,151,.06)" stroke="url(#sg)" stroke-width="2" stroke-dasharray="3 5"/>
   <path d="M60 18l30 11v23c0 20-13 34-30 42-17-8-30-22-30-42V29z" fill="rgba(255,255,255,.04)" stroke="url(#sg)" stroke-width="3.5" stroke-linejoin="round"/>
   ${ok ? '<path d="M44 60l12 12 21-24" fill="none" stroke="url(#sg)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>' : '<path d="M46 46l28 28M74 46L46 74" stroke="url(#sg)" stroke-width="6" stroke-linecap="round"/>'}</svg>`;
 function renderReceipt(r, into) {
