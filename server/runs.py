@@ -1,12 +1,13 @@
 """Run state machine: PROFILE -> PLAN -> DISPATCH -> EXECUTE -> VERIFY -> DESTROY -> SIGN."""
 from __future__ import annotations
-import ast, asyncio, json, os, time, uuid
+import ast, asyncio, json, logging, os, time, uuid
 from pathlib import Path
 
 from runner.base import SandboxPolicy, RunResult
 from . import llm, number_guard, settings
 from .receipts import Ledger, sha256_hex
 
+log = logging.getLogger('airgap.runs')
 PROFILER = '''import pandas as pd, json
 df = pd.read_csv("/job/data.csv", nrows=200000)
 print(json.dumps({"rows": int(len(df)),
@@ -96,6 +97,11 @@ async def run_analysis(run: Run, csv_path: Path, question: str, runner, ledger: 
             text, a, b = await asyncio.to_thread(llm.chat, settings.PLANNER_MODEL, PLANNER_SYSTEM, prompt)
             tin += a; tout += b
             code = llm.extract_code(text)
+            if not code.strip():
+                log.warning("no code extracted; raw planner reply head=%r tail=%r", text[:400], text[-200:])
+                feedback = "Your previous reply contained no code. Reply with ONLY one ```python block."
+                run.stage("PLAN", "error"); run.emit("retry", attempt=attempt, reason="planner returned no code")
+                continue
             try:
                 ast.parse(code)
             except SyntaxError as e:
