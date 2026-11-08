@@ -78,7 +78,7 @@ The service also **fails closed**: at boot it runs `EXFIL-HTTP` and `RESOURCE-BO
 Requires a **Linux host** with Docker (the runner reads the `/out` tmpfs volume from the host; Docker Desktop on macOS will not work). gVisor is optional.
 
 ```bash
-git clone <this repo> && cd airgap
+git clone https://github.com/anonymousminh/airgap && cd airgap
 docker build -t airgap-runner:1 runner/image                 # pandas/numpy/matplotlib baked in
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 sudo mkdir -p /var/lib/airgap/runs && sudo chown $USER /var/lib/airgap -R
