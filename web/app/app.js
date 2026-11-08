@@ -286,11 +286,11 @@ resetResult(); resetSteps(false); renderHistory(); route(); fxIdle();
 /* ---------- libraries.dev components (MIT): border-beam, thinking-orbs, bot-avatars. All optional. ---------- */
 function fx(fn) { try { if (window.AirgapFX) fn(window.AirgapFX); else addEventListener("load", () => window.AirgapFX && fn(window.AirgapFX), { once: true }); } catch (e) { /* app works without the effects */ } }
 const ORB = { PROFILE: "searching", PLAN: "solving", DISPATCH: "connecting", EXECUTE: "working", VERIFY: "composing", DESTROY: "breathing", SIGN: "breathing" };
-function fxIdle() { fx(F => { F.orb($("#runOrb"), { state: "breathing", size: 32, theme: "dark" }); F.bot($("#botPlan"), { type: "clover", size: 32, state: "sleeping" }); F.bot($("#botExp"), { type: "ghost", size: 32, state: "sleeping" }); F.beam($("#composerBeam"), { active: false, radius: 24 }); }); }
+function fxIdle() { fx(F => { F.orb($("#runOrb"), { state: "breathing", size: 32, theme: "light" }); F.bot($("#botPlan"), { type: "clover", size: 32, state: "sleeping" }); F.bot($("#botExp"), { type: "ghost", size: 32, state: "sleeping" }); F.beam($("#composerBeam"), { active: false, radius: 24 }); }); }
 function fxStage(stage, status) {
   if (status !== "start") return;
-  fx(F => { F.orb($("#runOrb"), { state: ORB[stage] || "working", size: 32, theme: "dark" });
+  fx(F => { F.orb($("#runOrb"), { state: ORB[stage] || "working", size: 32, theme: "light" });
     F.bot($("#botPlan"), { type: "clover", size: 32, state: stage === "PLAN" ? "working" : "sleeping" });
     F.bot($("#botExp"), { type: "ghost", size: 32, state: stage === "VERIFY" ? "working" : "sleeping" }); });
 }
-function fxBeam(active) { fx(F => F.beam($("#composerBeam"), { active, radius: 24, duration: 2.2, strength: 0.9, theme: "dark" })); }
+function fxBeam(active) { fx(F => F.beam($("#composerBeam"), { active, radius: 24, duration: 2.2, strength: 0.9, theme: "light" })); }
