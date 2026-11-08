@@ -79,6 +79,17 @@ class Ledger:
         return {"valid": sig_ok and hash_ok, "signature_ok": sig_ok, "chain_ok": chain_ok,
                 "in_ledger": bool(row), "reason": "ok" if sig_ok and hash_ok else "hash mismatch"}
 
+    def recent(self, n: int = 12) -> list[dict]:
+        rows = self.db.execute("SELECT seq, hash, prev_hash, run_id, kind, body FROM receipts ORDER BY seq DESC LIMIT ?", (n,)).fetchall()
+        out = []
+        for seq, h, prev, rid, kind, body in rows:
+            b = json.loads(body)
+            c = b.get("containment", {})
+            out.append({"seq": seq, "hash": h, "prev_hash": prev, "run_id": rid, "kind": kind,
+                        "issued_at": b.get("issued_at"), "attack_id": b.get("task", {}).get("attack_id"),
+                        "outcome": c.get("outcome", "analysis")})
+        return out
+
     def get(self, run_id: str):
         row = self.db.execute("SELECT body FROM receipts WHERE run_id=? ORDER BY seq DESC LIMIT 1", (run_id,)).fetchone()
         return json.loads(row[0]) if row else None

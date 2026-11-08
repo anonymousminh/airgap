@@ -67,7 +67,7 @@ h1{text-wrap:balance;font-size:clamp(36px,5.4vw,60px);line-height:1.04;letter-sp
 .viz-top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);font-size:11px}
 .dots{display:flex;gap:6px}.dots i{width:10px;height:10px;border-radius:50%;background:var(--line2)}
 #heroViz{display:block;width:100%;height:auto;padding:8px}
-#heroViz .t1{fill:var(--text);font:500 12px var(--mono)} #heroViz .t2{fill:var(--mute);font:500 10px var(--mono);letter-spacing:.12em} #heroViz .t3{fill:var(--dim);font:500 10px var(--mono)}
+#heroViz .t1{fill:var(--text);font:500 12px var(--mono)} #heroViz .t2{fill:var(--mute);font:500 10px var(--mono);letter-spacing:.12em} #heroViz .t3{fill:var(--dim);font:500 10px var(--mono)} #heroViz .bl{font-size:9px;font-weight:700}
 #heroViz .rot{fill:var(--accent)}
 .vz-box rect{fill:rgba(255,255,255,.04);stroke:var(--line2)} .vz-box.main rect:first-child{fill:rgba(45,212,191,.05);stroke:rgba(45,212,191,.35)}
 .vz-box rect.in{fill:rgba(255,255,255,.05);stroke:var(--line)} .vz-box.sand rect{fill:rgba(251,113,133,.06);stroke:rgba(251,113,133,.45)}

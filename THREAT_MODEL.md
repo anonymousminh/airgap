@@ -40,7 +40,7 @@ Control plane (trusted) ⟷ one throwaway container per run (untrusted code + un
 | T7 | Malicious file output attacks the browser/host | Output allowlist above; answers rendered as escaped text; no raw HTML | `web/app.js` `esc()`; no `innerHTML` of unescaped model text |
 | T8 | Model lies about numbers | **Number Guard** requires each number in the answer to appear in real stdout | red highlighting + receipt `number_guard` |
 | T9 | Receipt forged or edited after issuance | Ed25519 signature over canonical JSON; SHA-256 hash chain in an append-only ledger; browser-side verification | Tamper test; `tests/verify_canon.mjs` |
-| T10 | Abuse of the public demo | Per-IP rate limit (12 runs / 10 min), 5 MB upload cap, row cap, 2 concurrent sandboxes, 90 s LLM timeout | `server/main.py` |
+| T10 | Abuse of the public demo | Per-IP rate limits (12 analyses and 36 attack replays / 10 min, separate buckets), 5 MB upload cap, row cap, 2 concurrent sandboxes, 90 s LLM timeout | `server/main.py` |
 | T11 | Containment silently broken on a host | Boot self-test runs two cartridges; **fails closed** (HTTP 503 on `/api/run`) | `GET /healthz` |
 | T12 | Crash leaves orphaned containers | Startup sweep removes containers/volumes labelled `airgap=1` | `swept_orphans` in `/healthz` |
 

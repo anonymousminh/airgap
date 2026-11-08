@@ -3,7 +3,7 @@
 > **Vultr Agent Rush · Challenge 1 "Blast Radius Zero"**
 > Upload a spreadsheet, ask a question, get an answer — plus a **signed Containment Receipt** showing what the agent was never able to do. Then attack it yourself with six real-world exfiltration and escape techniques and watch them fail.
 
-**Live demo:** https://96-30-195-46.sslip.io  ·  **License:** MIT
+**Live demo:** https://96-30-195-46.sslip.io (landing) · https://96-30-195-46.sslip.io/app/ (workspace)  ·  **License:** MIT
 
 *Sandboxes keep agents contained. Airgap makes containment visible, testable and verifiable.*
 
@@ -93,7 +93,8 @@ Tests (need the image and Docker):
 ```bash
 .venv/bin/python tests/run_attacks.py runsc            # all six cartridges, prints evidence
 node tests/verify_canon.mjs http://127.0.0.1:8000      # Python-signed receipt verifies in JS; tamper fails
-python3 tests/ui_journey.py http://127.0.0.1:8000 /tmp/shots   # Playwright end-to-end UI run
+python3 tests/test_extract_code.py                     # planner-reply parsing (doubled fences etc.)
+python3 tests/ui_journey.py http://127.0.0.1:8000 /tmp/shots   # Playwright: landing -> app -> run -> receipt -> lab -> ledger
 ```
 
 ## Repo layout
@@ -101,7 +102,7 @@ python3 tests/ui_journey.py http://127.0.0.1:8000 /tmp/shots   # Playwright end-
 ```
 runner/   DockerRunner (policy → inspect → destroy), six attack cartridges, sandbox image
 server/   FastAPI app, run state machine, Vultr inference client, Number Guard, receipts + ledger
-web/      dependency-free single-page UI (no build step)
+web/      landing page (/) and workspace app (/app/): dependency-free HTML/CSS/JS, no build step
 deploy/   systemd unit, Caddyfile
 tests/    attack suite, cross-language receipt check, UI journey
 demo/     sales_q3.csv (includes a poisoned cell)
@@ -116,6 +117,6 @@ demo/     sales_q3.csv (includes a poisoned cell)
 - **Number Guard catches numbers the model made up, not wrong logic** in a script whose output is faithfully reported.
 - The sandbox image inherits public, non-secret variables (e.g. `GPG_KEY` from the Python base image); the secret-harvest check allowlists exactly those.
 - Run state and SSE history are in memory (single worker); receipts persist in SQLite.
-- Public demo is rate-limited and capped (5 MB uploads, 2 concurrent sandboxes).
+- Public demo is rate-limited per IP (12 analyses and 36 attack replays per 10 minutes) and capped (5 MB uploads, 2 concurrent sandboxes).
 
 MIT licensed. See [LICENSE](LICENSE).

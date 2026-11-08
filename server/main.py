@@ -34,12 +34,15 @@ runs: dict[str, Run] = {}
 hits: dict[str, deque] = defaultdict(deque)
 
 
-def rate_limit(request: Request, cost: int = 1):
+def rate_limit(request: Request, bucket: str = "run", cost: int = 1):
+    """Separate budgets: analyses spend LLM tokens (tight), attack replays don't (looser)."""
+    limit = settings.ATTACKS_PER_WINDOW if bucket == "attack" else settings.RUNS_PER_WINDOW
     ip = (request.headers.get("x-forwarded-for") or request.client.host).split(",")[0].strip()
-    now, q = time.time(), hits[ip]
+    now, q = time.time(), hits[(bucket, ip)]
     while q and now - q[0] > settings.WINDOW_S: q.popleft()
-    if len(q) + cost > settings.RUNS_PER_WINDOW:
-        raise HTTPException(429, "Rate limit: too many runs, try again in a few minutes.")
+    if len(q) + cost > limit:
+        wait = int(settings.WINDOW_S - (now - q[0])) // 60 + 1 if q else 1
+        raise HTTPException(429, f"Rate limit reached for the public demo. Try again in about {wait} min.")
     q.extend([now] * cost)
 
 
@@ -86,6 +89,11 @@ async def pubkey():
 @app.get("/api/ledger/head")
 async def ledger_head():
     return app.state.ledger.head()
+
+
+@app.get("/api/ledger/recent")
+async def ledger_recent(limit: int = 12):
+    return app.state.ledger.recent(max(1, min(limit, 40)))
 
 
 @app.get("/api/attacks")
@@ -144,7 +152,7 @@ async def events(run_id: str, request: Request):
 async def run_attack_ep(attack_id: str, request: Request):
     cart = BY_ID.get(attack_id)
     if not cart: raise HTTPException(404, "unknown attack")
-    rate_limit(request)
+    rate_limit(request, "attack")
     return await run_attack(cart, app.state.runner, app.state.ledger, app.state.canary, app.state.sem)
 
 
