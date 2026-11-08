@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Airgap — prove your AI analyst can't leak</title>
+<meta name="description" content="Upload a spreadsheet, ask a question. Get the answer plus a signed Containment Receipt proving what the agent was never able to do.">
+<meta name="theme-color" content="#070a10">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23070a10'/%3E%3Cpath d='M16 5l9 3.5v7c0 5.5-3.8 9.3-9 11.5-5.2-2.200-9-6-9-11.500v-7z' fill='none' stroke='%232dd4bf' stroke-width='2.200'/%3E%3Cpath d='M12 16l3 3 5-6' fill='none' stroke='%232dd4bf' stroke-width='2.200' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#top" aria-label="Airgap home">
+    <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M16 4l10 3.800v7.700c0 6-4.200 10.200-10 12.500C10.200 25.700 6 21.500 6 15.500V7.800z" fill="none" stroke="currentColor" stroke-width="2.200"/><path d="M11.500 16l3.200 3.200 5.800-6.700" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>AIRGAP</span>
+  </a>
+  <nav class="links" aria-label="Sections">
+    <a href="#analyst" data-nav="analyst">Analyst</a>
+    <a href="#lab" data-nav="lab">Attack Lab</a>
+    <a href="#how" data-nav="how">How it works</a>
+  </nav>
+  <div class="nav-right">
+    <div id="health" class="status"><i></i><span>checking…</span></div>
+    <a class="btn primary sm" href="#analyst">Try it live</a>
+  </div>
+</header>
+
+<main id="top">
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+  <div class="gridbg" aria-hidden="true"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="chip"><span class="pulse"></span> Vultr Agent Rush · Blast Radius Zero</div>
+      <h1>Prove your AI analyst <span class="grad">can’t leak.</span></h1>
+      <p class="lead">Upload a spreadsheet and ask a question. Get the answer — plus a <b>signed Containment Receipt</b> showing what the agent was never able to do. Then attack it yourself.</p>
+      <div class="cta">
+        <a class="btn primary lg" href="#analyst" id="heroDemo">Run the live demo <span class="arr">→</span></a>
+        <a class="btn ghost lg" href="#lab">Attack it yourself</a>
+      </div>
+      <dl class="stats">
+        <div><dt data-count="6">0</dt><dd>attack classes replayed</dd></div>
+        <div><dt data-count="0" data-suffix=" B">0</dt><dd>bytes exfiltrated</dd></div>
+        <div><dt id="statReceipts" data-count="0">0</dt><dd>receipts signed &amp; chained</dd></div>
+      </dl>
+    </div>
+
+    <div class="hero-viz card glow" aria-label="Animated diagram: attack attempts bounce off the trust boundary">
+      <div class="viz-top"><span class="dots"><i></i><i></i><i></i></span><span class="mono mute">live containment view</span><span class="mono ok">● enforcing</span></div>
+      <svg id="heroViz" viewBox="0 0 560 330" role="img" aria-hidden="true">
+        <defs>
+          <linearGradient id="gBeam" x1="0" x2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity="0"/><stop offset="1" stop-color="#2dd4bf"/></linearGradient>
+          <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+        </defs>
+        <g class="vz-box"><rect x="14" y="120" width="112" height="76" rx="12"/><text x="70" y="152" text-anchor="middle" class="t1">poisoned.csv</text><text x="70" y="172" text-anchor="middle" class="t2">poisoned cell</text></g>
+        <g class="vz-box main"><rect x="196" y="56" width="164" height="218" rx="14"/><text x="278" y="84" text-anchor="middle" class="t2">CONTROL PLANE</text>
+          <rect x="214" y="98" width="128" height="40" rx="8" class="in"/><text x="278" y="123" text-anchor="middle" class="t1">LLM · Vultr Inference</text>
+          <rect x="214" y="148" width="128" height="40" rx="8" class="in"/><text x="278" y="173" text-anchor="middle" class="t1">Number Guard</text>
+          <rect x="214" y="198" width="128" height="40" rx="8" class="in"/><text x="278" y="223" text-anchor="middle" class="t1">Ed25519 signer</text></g>
+        <line class="boundary" x1="408" y1="22" x2="408" y2="308"/>
+        <text x="420" y="300" class="t2 rot">TRUST BOUNDARY</text>
+        <g class="vz-box sand"><rect x="438" y="104" width="108" height="108" rx="12"/><text x="492" y="136" text-anchor="middle" class="t2">SANDBOX</text><text x="492" y="158" text-anchor="middle" class="t1">network: none</text><text x="492" y="176" text-anchor="middle" class="t1">no secrets</text><text x="492" y="194" text-anchor="middle" class="t3">gVisor</text></g>
+        <!-- good traffic: csv -> control -> sandbox -->
+        <path id="p1" d="M126 158 H196" class="rail"/><path id="p2" d="M360 158 H438" class="rail"/>
+        <circle r="5" class="pkt good"><animateMotion dur="3.6s" repeatCount="indefinite" path="M126 158 H196"/></circle>
+        <circle r="5" class="pkt good"><animateMotion dur="3.6s" begin="1.4s" repeatCount="indefinite" path="M360 158 H438"/></circle>
+        <!-- attacks: leave the sandbox, die at the boundary -->
+        <g class="atk"><circle r="5" class="pkt bad" opacity="0"><animateMotion dur="2.8s" begin="0.4s" repeatCount="indefinite" path="M438 140 H412"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="2.8s" begin="0.4s" repeatCount="indefinite"/></circle></g>
+        <g class="atk"><circle r="5" class="pkt bad" opacity="0"><animateMotion dur="2.8s" begin="1.3s" repeatCount="indefinite" path="M438 176 H412"/><animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.1;.8;1" dur="2.8s" begin="1.3s" repeatCount="indefinite"/></circle></g>
+        <g class="burst"><circle cx="408" cy="140" r="6" class="b1"/><circle cx="408" cy="176" r="6" class="b2"/></g>
+        <text x="412" y="124" class="t3 bl b1t">✕ EXFIL-HTTP blocked</text>
+        <text x="412" y="204" class="t3 bl b2t">✕ DNS-EXFIL blocked</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ANALYST ============ -->
+<section class="sec" id="analyst" data-sec="analyst">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">The product</span><h2>Ask a question. Get an answer you can audit.</h2>
+      <p>Your file is parsed and executed only inside a throwaway, network-less sandbox. The model never runs code itself.</p></div>
+
+    <div class="bento">
+      <div class="card glow ask">
+        <div class="card-h"><span class="num-badge">1</span> Ask</div>
+        <form id="runForm">
+          <label class="drop" id="drop" for="file">
+            <input type="file" id="file" accept=".csv,text/csv" hidden>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.800" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5M5 20h14"/></svg>
+            <span id="fileName">Drop a CSV or click to choose</span>
+          </label>
+          <textarea id="question" rows="3" maxlength="500" placeholder="Which region had the biggest Q3 revenue drop, and by how much?"></textarea>
+          <div class="row">
+            <button id="runBtn" class="btn primary" type="submit">Run analysis</button>
+            <button type="button" id="useDemo" class="btn ghost">One-click demo</button>
+          </div>
+          <p class="hint">The demo file hides a prompt-injection in a cell. Watch what happens to it.</p>
+        </form>
+      </div>
+
+      <div class="card glow live">
+        <div class="card-h"><span class="num-badge">2</span> Live run <span class="elapsed mono" id="elapsed"></span></div>
+        <ol id="timeline" class="steps"></ol>
+        <div class="term" id="term">
+          <div class="term-bar"><i></i><i></i><i></i><span class="mono mute">sandbox · stdout</span></div>
+          <pre id="stdout" class="term-body"><span class="mute">$ waiting for a question…</span></pre>
+        </div>
+        <details id="codeBox" hidden><summary>View the code the model wrote</summary><pre id="code"></pre></details>
+      </div>
+
+      <div class="card glow answer-card" id="answerCard" hidden>
+        <div class="card-h"><span class="num-badge">3</span> Answer <span class="guard" id="guardChip"></span></div>
+        <div id="answer" class="answer"></div>
+        <p class="hint legend"><span class="num ok">green</span> number appears in the sandbox’s real output · <span class="num bad">red</span> it does not</p>
+        <div id="charts"></div>
+      </div>
+
+      <div class="card glow receipt-card" id="receiptCard" hidden>
+        <div class="card-h"><span class="num-badge">4</span> Containment Receipt</div>
+        <div id="receiptView"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ATTACK LAB ============ -->
+<section class="sec alt" id="lab" data-sec="lab">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Attack Lab</span><h2>Assume the model is compromised. Does the sandbox hold?</h2>
+      <p>Six real-world exfiltration and escape classes, replayed live against our own sandbox. Containment is judged from observed evidence — errors raised <em>inside</em> the sandbox, <code>docker inspect</code> state, canary scans — then signed.</p></div>
+
+    <div class="card glow scorebar" id="score">
+      <div class="sc"><b id="sbContained">–</b><span>contained</span></div>
+      <div class="sc"><b id="sbBytes">–</b><span>bytes exfiltrated</span></div>
+      <div class="sc"><b id="sbSecrets">–</b><span>secrets exposed</span></div>
+      <button id="runAll" class="btn primary lg">Run all six attacks</button>
+    </div>
+    <div id="tiles" class="tiles"></div>
+  </div>
+</section>
+
+<!-- ============ HOW ============ -->
+<section class="sec" id="how" data-sec="how">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">How it works</span><h2>Two planes. One rule: the LLM never touches the sandbox.</h2></div>
+    <div class="how">
+      <div class="card glow how-main">
+        <div class="plane cp"><span class="plane-t mono">CONTROL PLANE · Vultr Cloud Compute VM · trusted</span>
+          <div class="pills"><span>FastAPI orchestrator</span><span>Vultr Serverless Inference</span><span>Number Guard</span><span>Ed25519 signer</span><span>hash-chained ledger</span><span>Docker + gVisor driver</span></div></div>
+        <div class="bline"><span class="mono">TRUST BOUNDARY</span></div>
+        <div class="plane dp"><span class="plane-t mono">DATA PLANE · one throwaway container per run · untrusted</span>
+          <div class="pills red"><span>network = none</span><span>read-only rootfs</span><span>cap-drop ALL</span><span>no-new-privileges</span><span>non-root</span><span>pids / mem / cpu / wall caps</span><span>destroyed &amp; verified</span></div></div>
+      </div>
+      <div class="card glow how-s"><h3>Plan</h3><p>A coder model writes one Python script from your question and a sandbox-parsed schema. Untrusted cell text is treated as data.</p></div>
+      <div class="card glow how-s"><h3>Dispatch</h3><p>The script runs in a fresh gVisor container with no network, no secrets and no Docker socket. Only stdout and PNGs come back.</p></div>
+      <div class="card glow how-s"><h3>Prove</h3><p>A second, different model explains the result. Number Guard checks every figure against real output. The receipt is signed and chained.</p></div>
+      <div class="card glow honest">
+        <h3>What we do <u>not</u> claim</h3>
+        <p>The signature proves the receipt wasn’t altered after the orchestrator issued it. It is <b>not</b> hardware attestation — you are trusting the orchestrator’s measurements. Attack payloads are the code a <em>fully hijacked</em> model would write, executed deterministically; they are classes of attack inspired by public incidents (ChatGPT code interpreter, Flowise CSV agent, AWS Bedrock code interpreter), not reproductions of vendors’ exact exploits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============ TAMPER DRAWER ============ -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="tamper" aria-hidden="true" aria-label="Tamper test">
+  <div class="drawer-h"><div><b>Tamper test</b><span class="mute"> — edit any field, then verify. Checked in your browser.</span></div><button class="x" id="closeTamper" aria-label="Close">✕</button></div>
+  <textarea id="tamperText" spellcheck="false"></textarea>
+  <div class="drawer-f">
+    <button id="verifyBtn" class="btn primary">Verify signature</button>
+    <button id="resetTamper" class="btn ghost">Reset</button>
+    <button id="dlReceipt" class="btn ghost">Download .json</button>
+  </div>
+  <div id="stamp" class="stamp" hidden></div>
+  <span id="verifyResult" class="verdict" role="status"></span>
+</aside>
+
+<footer class="foot"><div class="wrap">
+  <div><b>AIRGAP</b> · built for Vultr Agent Rush · Challenge 1 “Blast Radius Zero”</div>
+  <div class="mute">Runs on Vultr Cloud Compute + Serverless Inference · MIT licensed</div>
+</div></footer>
+<script src="/app.js"></script>
+</body>
+</html>

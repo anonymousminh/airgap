@@ -1,0 +1,11 @@
+96-30-195-46.sslip.io {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8000 {
+		flush_interval -1
+	}
+}
+:80 {
+	reverse_proxy 127.0.0.1:8000 {
+		flush_interval -1
+	}
+}

@@ -1,0 +1,15 @@
+[Unit]
+Description=AIRGAP control plane
+After=network-online.target docker.service
+Requires=docker.service
+
+[Service]
+WorkingDirectory=/opt/airgap
+EnvironmentFile=/opt/airgap/.env
+ExecStart=/opt/airgap/.venv/bin/uvicorn server.main:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=no
+
+[Install]
+WantedBy=multi-user.target
