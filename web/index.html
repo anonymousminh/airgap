@@ -5,151 +5,112 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Airgap — prove your AI analyst can't leak</title>
 <meta name="description" content="Ask questions about your spreadsheet. Every answer comes with a signed receipt of what the agent was never able to do. Then attack it yourself.">
-<meta name="theme-color" content="#121212">
-<meta property="og:title" content="Airgap — prove your AI analyst can't leak">
-<meta property="og:description" content="Sandboxed AI data analysis with signed Containment Receipts and a live attack gallery.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23121212'/%3E%3Cpath d='M16 5l9 3.5v7c0 5.5-3.8 9.3-9 11.5-5.2-2.2-9-6-9-11.5v-7z' fill='none' stroke='%233b8cff' stroke-width='2.2'/%3E%3Cpath d='M12 16l3 3 5-6' fill='none' stroke='%233b8cff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23111827'/%3E%3Cpath d='M16 5l9 3.5v7c0 5.5-3.8 9.3-9 11.5-5.2-2.2-9-6-9-11.5v-7z' fill='none' stroke='%23fff' stroke-width='2.2'/%3E%3Cpath d='M12 16l3 3 5-6' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/style.css">
-<link rel="stylesheet" href="/landing.css">
+<link rel="stylesheet" href="/lp.css">
 </head>
 <body>
 <header class="nav" id="nav">
-  <a class="brand" href="#top" aria-label="Airgap home">
-    <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M16 4l10 3.8v7.7c0 6-4.2 10.2-10 12.5C10.2 25.7 6 21.5 6 15.5V7.8z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M11.5 16l3.2 3.2 5.8-6.7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Airgap</span>
-  </a>
-  <nav class="links" aria-label="Sections"><a href="#gallery">Attack gallery</a><a href="#how">How it works</a><a href="#receipts">Receipts</a><a href="#faq">FAQ</a></nav>
-  <div class="nav-right">
-    <div id="health" class="status"><i></i><span>checking…</span></div>
-    <a class="btn sm gh" href="https://github.com/anonymousminh/airgap" aria-label="GitHub repository"><svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 00-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 015.76 0c2.19-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.83 1.18 3.09 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0012 .5z"/></svg>GitHub</a>
-    <a class="btn primary sm" href="/app/">Open app</a>
-  </div>
+  <a class="brand" href="#top"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect width="32" height="32" rx="8" fill="#111827"/><path d="M16 6l9 3.4v6.6c0 5.2-3.7 8.8-9 10.8-5.3-2-9-5.600-9-10.800V9.400z" fill="none" stroke="#fff" stroke-width="2.200"/><path d="M12 16l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.200" stroke-linecap="round"/></svg>Airgap</a>
+  <nav class="links" aria-label="Sections"><a href="#product">Product</a><a href="#gallery">Attack gallery</a><a href="#how">How it works</a><a href="#faq">FAQ</a></nav>
+  <div class="nav-r"><div id="health" class="status"><i></i><span>checking…</span></div><a class="lnk-plain" href="https://github.com/anonymousminh/airgap">GitHub</a><a class="btn dark sm" href="/app/">Open app</a></div>
 </header>
 
 <main id="top">
-<!-- ============ HERO ============ -->
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="wrap hero-stage">
-    <div class="float" id="floatTiles" aria-hidden="true"></div>
-    <div class="hero-copy">
-      <a class="pillbadge" href="#gallery"><span class="pulse"></span><b id="statReceipts" data-count="0">0</b> receipts signed <i>·</i> <b>0</b> bytes exfiltrated</a>
-      <h1>Prove your AI analyst <br class="br">can’t leak.</h1>
-      <p class="lead">Ask questions about your spreadsheet. Every answer comes with a signed receipt of what the agent was never able to do.</p>
-      <div class="cta">
-        <a class="btn lg" href="#gallery">Browse attacks</a>
-        <a class="btn primary lg" href="/app/">Open the app</a>
-      </div>
-    </div>
+  <div class="wrap center">
+    <h1>Prove your AI analyst<br>can’t leak.</h1>
+    <p class="sub">Ask questions about your spreadsheet. Every answer comes with a signed receipt of what the agent was never able to do. Then attack it yourself, live.</p>
+    <div class="cta"><a class="btn dark lg" href="/app/">Open the app</a><a class="tlink" href="#gallery">Watch an attack <span>→</span></a></div>
+    <p class="note">Open source · MIT · <b id="statReceipts">0</b> receipts signed so far · no sign-up</p>
+    <div class="vbadge"><b>Vultr</b><span>Built on Cloud Compute + Serverless Inference</span></div>
   </div>
-  <div class="wrap built">
-    <span>Built on</span>
-    <b>Vultr</b><b>gVisor</b><b>Docker</b><b>FastAPI</b><b>Ed25519</b>
-  </div>
+  <!-- strip of real product cards, bleeding off both edges -->
+  <div class="strip" aria-hidden="true"><div class="strip-in">
+    <div class="pc pc-white"><p class="cap">CONTAINMENT RECEIPT</p><div class="kvr"><span>network</span><b>none</b></div><div class="kvr"><span>capabilities dropped</span><b>ALL</b></div><div class="kvr"><span>secrets in sandbox</span><b>0</b></div><div class="kvr"><span>container</span><b class="g">destroyed ✓</b></div><div class="sealrow"><span class="vpill">✓ VERIFIED</span><span class="mono mut">Ed25519</span></div></div>
+    <div class="pc pc-cream"><p class="cap">ANSWER · NUMBER GUARD</p><p class="ans">East fell by <span class="n ok">22,999</span>, roughly <span class="n bad">31%</span> of Q2.</p><p class="mut sm">Every figure must appear in the sandbox’s real output. The red one never did, so it’s flagged.</p><div class="sealrow"><span class="chip-g">1 of 2 verified</span></div></div>
+    <div class="pc pc-dark beamhost"><div class="beam" data-fx="beam" data-fx-radius="24" data-fx-duration="2.6" data-fx-strength="0.85"></div><p class="cap lt">LIVE ATTACK · EXFIL-HTTP</p><div class="scene sc" id="heroScene"></div><div class="sealrow"><span class="chip-gd">✓ CONTAINED</span><span class="mono dim">network = none</span></div></div>
+    <div class="pc pc-blue"><p class="cap lt">TWO MODELS, NEVER THE SAME</p><div class="bots"><div><div class="bot" data-fx="bot" data-fx-type="clover" data-fx-size="104" data-fx-state="working"></div><b>Planner</b><span>qwen3.8-27b</span></div><div><div class="bot" data-fx="bot" data-fx-type="ghost" data-fx-size="104"></div><b>Explainer</b><span>glm-5.3</span></div></div></div>
+    <div class="pc pc-soft"><p class="cap">LIVE RUN</p><div class="orbrow"><div class="orb" data-fx="orb" data-fx-state="solving" data-fx-size="64" data-fx-theme="light"></div><div><b>Agent planning…</b><span class="mut sm">writes one script, never runs it</span></div></div><div class="steps-s"><i class="on">profile</i><i class="on">plan</i><i>execute</i><i>verify</i><i>sign</i></div></div>
+  </div></div>
 </section>
 
-<!-- ============ GALLERY (the attack lab) ============ -->
-<section class="sec" id="gallery"><div class="wrap">
-  <div class="gal-head rv">
-    <div>
-      <h2>Six ways to steal your data.<br><span class="m">Run them against the sandbox.</span></h2>
-    </div>
-    <div class="gal-score mono" id="galScore"><b id="scN">0</b>/6 contained <i>·</i> <b>0</b> B exfiltrated</div>
+<section class="built"><div class="wrap center"><span>Built on</span><b>Vultr</b><b>gVisor</b><b>Docker</b><b>FastAPI</b><b>Ed25519</b><b>libraries.dev</b></div></section>
+
+<!-- PRODUCT / USE-CASE GRID -->
+<section class="sec" id="product"><div class="wrap">
+  <div class="sh center"><h2>Everything a reviewer asks for</h2><p>Six things that turn “trust us” into evidence you can check.</p></div>
+  <div class="ugrid">
+    <a class="uc" href="/app/#/ledger"><div class="up"><div class="mini-card"><div class="kvr"><span>"network"</span><b>"none"</b></div><div class="kvr"><span>"secrets"</span><b>0</b></div><div class="kvr"><span>"destroyed"</span><b>true</b></div></div></div><div class="ut"><h3>Signed receipts <i>→</i></h3><p>Ed25519-signed, hash-chained, with the sandbox policy as observed from <code>docker inspect</code>.</p></div></a>
+    <a class="uc" href="/app/"><div class="up"><div class="mini-card"><p class="ans sm">East fell by <span class="n ok">22,999</span> and <span class="n bad">31%</span></p><p class="mut xs">1 of 2 figures verified</p></div></div><div class="ut"><h3>Number Guard <i>→</i></h3><p>Every figure in the answer must appear in the sandbox’s real output. No model grades itself.</p></div></a>
+    <a class="uc" href="#gallery"><div class="up"><div class="dots6"><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="ut"><h3>Live Attack Lab <i>→</i></h3><p>Six attack classes replayed against the real sandbox, each judged on evidence and signed.</p></div></a>
+    <a class="uc" href="/app/"><div class="up"><div class="mini-card"><div class="kvr"><span>boot self-test: exfil</span><b class="g">✓</b></div><div class="kvr"><span>boot self-test: bomb</span><b class="g">✓</b></div><div class="kvr"><span>serving runs</span><b class="g">yes</b></div></div></div><div class="ut"><h3>Fails closed <i>→</i></h3><p>At boot, two attacks run against the host. If containment doesn’t hold, the service refuses to run.</p></div></a>
+    <a class="uc" href="/app/"><div class="up"><div class="stamps"><span class="st ok">VERIFIED</span><span class="st bad">TAMPERED</span></div></div><div class="ut"><h3>Verified in your browser <i>→</i></h3><p>WebCrypto checks the signature locally. Change one character and it fails.</p></div></a>
+    <a class="uc" href="#how"><div class="up"><div class="bots sm2"><div><div class="bot" data-fx="bot" data-fx-type="flower" data-fx-size="72"></div></div><div><div class="bot" data-fx="bot" data-fx-type="star" data-fx-size="72" data-fx-state="working"></div></div></div></div><div class="ut"><h3>Two independent models <i>→</i></h3><p>One writes the code, a different one writes the answer, both on Vultr Serverless Inference.</p></div></a>
   </div>
-  <div class="gal-bar rv">
-    <div class="pills-f" id="filters" role="tablist">
-      <button class="pf on" data-f="all">All</button><button class="pf" data-f="network">Network</button><button class="pf" data-f="resources">Resources</button><button class="pf" data-f="host">Host</button>
-    </div>
-    <button class="btn primary sm" id="runAll">Run all six</button>
-  </div>
-  <div class="gal" id="gal"></div>
-  <p class="gal-foot rv">Every run is real: it executes in the live sandbox, returns evidence, and issues a signed receipt you can verify in your browser. These are classes of attack inspired by public incidents, run as the code a fully hijacked model would write.</p>
 </div></section>
 
-<!-- ============ HOW ============ -->
+<!-- DARK BAND: attack gallery switcher -->
+<section class="dark" id="gallery"><div class="wrap">
+  <div class="sh center lt"><h2>Attack it yourself</h2><p>Assume the model is fully compromised. Pick an attack and run it against the live sandbox.</p></div>
+  <div class="sw">
+    <div class="sw-l">
+      <div class="sw-top"><span class="mono score" id="galScore"><b id="scN">0</b>/6 contained · <b>0</b> B exfiltrated</span><button class="btn light sm" id="runAll">Run all six</button></div>
+      <div id="swList"></div>
+    </div>
+    <div class="sw-r"><div class="panel beamhost" id="panel"><div class="beam" id="panelBeam"></div>
+      <div class="pbar"><span class="mono dim" id="pName">EXFIL-HTTP</span><span class="pstat" id="pStat">READY</span></div>
+      <div class="pscene sc" id="pScene"></div>
+      <div class="pevid" id="pEvid">Select an attack, then run it. You’ll see the real error raised inside the sandbox.</div>
+      <div class="pact"><button class="btn white sm" id="pRun">Run this attack</button><button class="btn ghostw sm" id="pVerify" hidden>Verify receipt</button><span class="vr" id="pVr"></span></div>
+    </div></div>
+  </div>
+  <p class="gal-foot">Classes of attack inspired by public incidents, run as the code a fully hijacked model would write. Not reproductions of any vendor’s exploit.</p>
+</div></section>
+
+<!-- HOW -->
 <section class="sec" id="how"><div class="wrap">
-  <div class="sec-head center rv"><h2>How it works</h2><p>Two planes, one rule: the model never touches the sandbox.</p></div>
-  <div class="trio3">
-    <div class="frame rv"><div class="inner pv pv1">
-        <div class="fchip"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg>sales_q3.csv</div>
-        <div class="bubble">Which region had the biggest Q3 revenue drop?</div>
-        <div class="warnchip">⚠ 1 suspicious cell · treated as data</div>
-      </div>
-      <div class="cap"><span class="ic">1</span><div><b>Upload and ask</b><p>The CSV is parsed by a fixed profiler inside a sandbox, never by the control plane.</p></div></div></div>
-    <div class="frame rv"><div class="inner pv pv2">
-        <pre class="code"><span class="k">import</span> pandas <span class="k">as</span> pd
-df = pd.read_csv(<span class="s">"/job/data.csv"</span>)
-...
-<span class="k">print</span>(<span class="s">f"region: {r}"</span>)</pre>
-        <div class="badges"><i>network: none</i><i>read-only fs</i><i>cap-drop ALL</i><i>gVisor</i></div>
-      </div>
-      <div class="cap"><span class="ic">2</span><div><b>Run in isolation</b><p>A coder model writes one script. It runs in a throwaway container, destroyed after.</p></div></div></div>
-    <div class="frame rv"><div class="inner pv pv3">
-        <div class="mini-r"><svg viewBox="0 0 120 120" width="54" height="54"><circle cx="60" cy="60" r="55" fill="none" stroke="#3ddc97" stroke-width="2" stroke-dasharray="3 5"/><path d="M60 18l30 11v23c0 20-13 34-30 42-17-8-30-22-30-42V29z" fill="none" stroke="#3ddc97" stroke-width="4" stroke-linejoin="round"/><path d="M44 60l12 12 21-24" fill="none" stroke="#3ddc97" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <div class="kv"><span>blast radius</span><b>0</b><span>signature</span><b class="g">Ed25519 ✓</b></div></div>
-      </div>
-      <div class="cap"><span class="ic">3</span><div><b>Verify and sign</b><p>Number Guard checks every figure. The receipt is signed, chained, and checked in your browser.</p></div></div></div>
+  <div class="sh center"><h2>How it works</h2><p>Two planes, one rule: the model never touches the sandbox.</p></div>
+  <div class="trio">
+    <div class="uc st3"><div class="up"><div class="mini-card"><span class="fchip">sales_q3.csv</span><p class="bubble">Which region had the biggest Q3 drop?</p><p class="warn">⚠ 1 suspicious cell · treated as data</p></div></div><div class="ut"><h3><span class="num">1</span>Upload and ask</h3><p>The CSV is parsed by a fixed profiler inside a sandbox, never by the control plane.</p></div></div>
+    <div class="uc st3"><div class="up"><div class="mini-card orbc"><div class="orb" data-fx="orb" data-fx-state="working" data-fx-size="64" data-fx-theme="light"></div><div><b>Executing in gVisor</b><span class="mut xs">no network · read-only · caps dropped</span></div></div></div><div class="ut"><h3><span class="num">2</span>Run in isolation</h3><p>A coder model writes one script. It runs in a throwaway container that is destroyed after.</p></div></div>
+    <div class="uc st3"><div class="up"><div class="mini-card"><div class="sealrow" style="margin:0"><span class="vpill">✓ VERIFIED</span><span class="mono mut">blast radius 0</span></div><div class="kvr"><span>signature</span><b>Ed25519</b></div></div></div><div class="ut"><h3><span class="num">3</span>Verify and sign</h3><p>Number Guard checks every figure. The receipt is signed, chained and checked in your browser.</p></div></div>
   </div>
 </div></section>
 
-<!-- ============ RECEIPTS / TAMPER LOOP ============ -->
-<section class="sec" id="receipts"><div class="wrap">
-  <div class="frame wide-f rv">
-    <div class="split">
-      <div class="inner receipt-pv">
-        <div class="jline"><span class="mono mute">"network"</span><span class="mono">"none"</span></div>
-        <div class="jline"><span class="mono mute">"secrets_provided_to_sandbox"</span><span class="mono">0</span></div>
-        <div class="jline hot"><span class="mono mute">"canary_hits_on_listener"</span><span class="mono swap"><i class="v0">0</i><i class="v1">7</i></span></div>
-        <div class="jline"><span class="mono mute">"destroyed_verified"</span><span class="mono">true</span></div>
-        <div class="stamps"><span class="st ok">VERIFIED</span><span class="st bad">TAMPERED</span></div>
-      </div>
-      <div class="split-t">
-        <h2>Don’t trust the receipt.<br><span class="m">Try to forge it.</span></h2>
-        <p>Every receipt is Ed25519-signed and chained to the one before. Change a single character and the signature stops matching — in your browser, with no server involved.</p>
-        <div class="cta"><a class="btn primary" href="/app/#/ledger">See the ledger</a><a class="btn" href="/app/">Run an analysis</a></div>
-      </div>
-    </div>
-  </div>
-</div></section>
-
-<!-- ============ HONEST ============ -->
-<section class="sec" id="honest"><div class="wrap">
-  <div class="sec-head center rv"><h2>What a receipt proves — and doesn’t</h2></div>
+<!-- HONEST -->
+<section class="sec soft" id="honest"><div class="wrap">
+  <div class="sh center"><h2>What a receipt proves, and what it doesn’t</h2></div>
   <div class="two">
-    <div class="frame rv"><div class="inner txt"><h3 class="ok">It proves</h3><ul class="ticks"><li>The receipt wasn’t altered after the orchestrator issued it</li><li>The sandbox policy, as observed from <code>docker inspect</code></li><li>The container was destroyed and verified gone</li><li>Every number in the answer appeared in the real output</li></ul></div></div>
-    <div class="frame rv"><div class="inner txt"><h3 class="warnc">It doesn’t prove</h3><ul class="crosses"><li>Hardware attestation — you trust the orchestrator’s measurements</li><li>That gVisor has no bugs; it’s a user-space kernel, not a microVM</li><li>That a script’s logic is correct — only that its numbers are real</li><li>That the orchestrator host is uncompromised</li></ul></div></div>
+    <div class="hc"><h3 class="gt">It proves</h3><ul class="ticks"><li>The receipt wasn’t altered after the orchestrator issued it</li><li>The sandbox policy, as observed from <code>docker inspect</code></li><li>The container was destroyed and verified gone</li><li>Every number in the answer appeared in the real output</li></ul></div>
+    <div class="hc"><h3 class="wt">It doesn’t prove</h3><ul class="crosses"><li>Hardware attestation: you trust the orchestrator’s measurements</li><li>That gVisor has no bugs; it’s a user-space kernel, not a microVM</li><li>That a script’s logic is correct, only that its numbers are real</li><li>That the orchestrator host is uncompromised</li></ul></div>
   </div>
-  <p class="center mute rv" style="margin-top:18px">Full risks and mitigations: <a class="lnk" href="https://github.com/anonymousminh/airgap/blob/main/THREAT_MODEL.md">THREAT_MODEL.md</a></p>
+  <p class="center mut sm" style="margin-top:18px">Full list: <a class="ul" href="https://github.com/anonymousminh/airgap/blob/main/THREAT_MODEL.md">THREAT_MODEL.md</a></p>
 </div></section>
 
-<!-- ============ FAQ ============ -->
+<!-- FAQ -->
 <section class="sec" id="faq"><div class="wrap narrow">
-  <div class="sec-head center rv"><h2>FAQs</h2></div>
-  <div class="faq rv">
+  <div class="sh center"><h2>Questions you should ask</h2></div>
+  <div class="faq">
     <details><summary>Does my data leave the server?</summary><p>Your file is processed only on our Vultr VM. To plan and explain the analysis, the schema, five sample rows and the program’s output are sent to Vultr Serverless Inference. Don’t upload sensitive data to the public demo.</p></details>
-    <details><summary>Is it unhackable?</summary><p>No, and we don’t claim that. It’s built so a fully compromised model still can’t reach a network, a secret or the host, and so you can check that yourself. Residual risks are listed openly in the threat model.</p></details>
+    <details><summary>Is it unhackable?</summary><p>No, and we don’t claim that. A fully compromised model still can’t reach a network, a secret or the host, and you can check that yourself. Residual risks are listed openly in the threat model.</p></details>
     <details><summary>Why gVisor and not a microVM?</summary><p>The demo VM has no KVM, so Firecracker-style microVMs weren’t available. The runner sits behind an interface, so a microVM backend is a drop-in next step.</p></details>
     <details><summary>Which models does it use?</summary><p>A coder model (<code>qwen3.8-27b</code>) writes the script; a different model (<code>glm-5.3</code>) writes the answer from real output. Both run on Vultr Serverless Inference.</p></details>
-    <details><summary>Are the attacks real?</summary><p>They’re classes of attack inspired by public incidents, executed as the code a fully hijacked model would write — not reproductions of any vendor’s exact exploit. Every payload is viewable in the app.</p></details>
-    <details><summary>Can I run it myself?</summary><p>Yes — MIT licensed: <a class="lnk" href="https://github.com/anonymousminh/airgap">github.com/anonymousminh/airgap</a>.</p></details>
+    <details><summary>Are the attacks real?</summary><p>They’re classes of attack inspired by public incidents, executed as the code a fully hijacked model would write. Every payload is viewable in the app.</p></details>
+    <details><summary>What are those animated orbs and avatars?</summary><p>Border beam, thinking orbs and bot avatars come from the open-source <a class="ul" href="https://libraries.dev">libraries.dev</a> packages (MIT). We use them for status, not decoration.</p></details>
   </div>
 </div></section>
 
-<section class="cta-final rv"><div class="wrap center"><h2>See what your agent can’t do.</h2>
-  <div class="cta"><a class="btn primary lg" href="/app/">Open the app</a><a class="btn lg" href="#gallery">Run an attack</a></div></div></section>
+<section class="dark cta2"><div class="wrap center"><h2>See what your agent can’t do.</h2><div class="cta"><a class="btn white lg" href="/app/">Open the app</a><a class="btn ghostw lg" href="#gallery">Run an attack</a></div></div></section>
 </main>
 
-<footer class="foot2"><div class="wrap fgrid">
-  <div><a class="brand" href="#top"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M16 4l10 3.8v7.7c0 6-4.2 10.2-10 12.5C10.2 25.7 6 21.5 6 15.5V7.8z" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M11.5 16l3.2 3.2 5.8-6.7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Airgap</span></a>
-    <p class="mute">The AI data analyst that shows its receipts.</p><p class="mute small">Built for Vultr Agent Rush · Challenge 1 “Blast Radius Zero”. MIT licensed.</p></div>
-  <div class="fcols">
-    <div><h4>Attacks</h4><a href="#gallery">EXFIL-HTTP</a><a href="#gallery">DNS-EXFIL</a><a href="#gallery">METADATA-SSRF</a><a href="#gallery">SECRET-HARVEST</a><a href="#gallery">RESOURCE-BOMB</a><a href="#gallery">HOST-ESCAPE</a></div>
-    <div><h4>Product</h4><a href="/app/">Analyst</a><a href="/app/#/lab">Attack Lab</a><a href="/app/#/ledger">Ledger</a><a href="#how">How it works</a></div>
-    <div><h4>Project</h4><a href="https://github.com/anonymousminh/airgap">GitHub</a><a href="https://github.com/anonymousminh/airgap/blob/main/THREAT_MODEL.md">Threat model</a><a href="https://github.com/anonymousminh/airgap/blob/main/LICENSE">MIT license</a></div>
-  </div>
-</div></footer>
+<footer class="foot"><div class="wrap fg"><div><a class="brand" href="#top"><svg viewBox="0 0 32 32" width="24" height="24"><rect width="32" height="32" rx="8" fill="#111827"/><path d="M16 6l9 3.4v6.6c0 5.2-3.7 8.8-9 10.8-5.3-2-9-5.6-9-10.8V9.4z" fill="none" stroke="#fff" stroke-width="2.2"/><path d="M12 16l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>Airgap</a><p class="mut sm">The AI data analyst that shows its receipts. Built for Vultr Agent Rush · Challenge 1 “Blast Radius Zero”. MIT licensed.</p></div>
+  <div class="fcols"><div><h4>Product</h4><a href="/app/">Analyst</a><a href="/app/#/lab">Attack Lab</a><a href="/app/#/ledger">Ledger</a></div><div><h4>Project</h4><a href="https://github.com/anonymousminh/airgap">GitHub</a><a href="https://github.com/anonymousminh/airgap/blob/main/THREAT_MODEL.md">Threat model</a><a href="https://github.com/anonymousminh/airgap/blob/main/LICENSE">MIT license</a></div><div><h4>Credits</h4><a href="https://libraries.dev">libraries.dev (MIT)</a><a href="https://vultr.com">Vultr</a></div></div></div></footer>
 <script src="/shared.js"></script>
-<script src="/landing.js"></script>
+<script src="/lp.js"></script>
+<script src="/fx.bundle.js" defer></script>
 </body>
 </html>

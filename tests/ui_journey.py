@@ -11,24 +11,20 @@ with sync_playwright() as p:
     pg.on("response", lambda r: errors.append(f"HTTP {r.status} {r.url}") if r.status >= 400 else None)
 
     # ---------- landing ----------
-    pg.goto(URL + "/", wait_until="networkidle"); pg.wait_for_timeout(2200)
+    pg.goto(URL + "/", wait_until="networkidle"); pg.wait_for_timeout(2600)
     pg.screenshot(path=f"{OUT}/10-landing-hero.png")
-    print("floating tiles:", pg.locator("#floatTiles .ft").count(), "| gallery cards:", pg.locator("#gal .gcard").count())
-    pg.locator("#gallery").scroll_into_view_if_needed(); pg.wait_for_timeout(1000)
-    pg.click('#filters .pf[data-f="network"]'); pg.wait_for_timeout(300)
-    print("network filter shows:", pg.locator("#gal .gcard:not([hidden])").count())
-    pg.click('#filters .pf[data-f="all"]')
-    pg.click("#g-EXFIL-HTTP .go"); pg.wait_for_selector("#g-EXFIL-HTTP.contained", timeout=60000)
-    pg.click("#g-EXFIL-HTTP .vf"); pg.wait_for_timeout(1200)
-    print("gallery verify:", pg.inner_text("#g-EXFIL-HTTP .vr"))
-    pg.click("#runAll"); pg.wait_for_function("document.querySelectorAll('#gal .gcard.contained,#gal .gcard.failed').length===6", timeout=150000)
-    pg.wait_for_timeout(1500); pg.locator("#gallery").screenshot(path=f"{OUT}/11-gallery-done.png")
-    print("gallery score:", pg.inner_text("#galScore"))
-    for sec, name in [("#how", "12-how"), ("#receipts", "13-receipts"), ("#honest", "14-honest"), ("#faq", "15-faq")]:
+    print("hero cards:", pg.locator(".strip-in .pc").count(), "| canvases (orbs/bots/beam):", pg.locator("canvas").count(), "| switcher items:", pg.locator("#swList .it").count())
+    pg.locator("#gallery").scroll_into_view_if_needed(); pg.wait_for_timeout(900)
+    pg.click("#pRun"); pg.wait_for_function("document.querySelector('#pStat').textContent.includes('CONTAINED')", timeout=60000)
+    pg.click("#pVerify"); pg.wait_for_timeout(1200); print("switcher verify:", pg.inner_text("#pVr"))
+    pg.click("#runAll"); pg.wait_for_function("document.querySelectorAll('#swList .it.done,#swList .it.bad').length===6", timeout=150000); pg.wait_for_timeout(1500)
+    pg.locator("#gallery").screenshot(path=f"{OUT}/11-gallery-done.png"); print("score:", pg.inner_text("#galScore"))
+    for sec, name in [("#product", "12-product"), ("#how", "13-how"), ("#honest", "14-honest"), ("#faq", "15-faq")]:
         pg.locator(sec).scroll_into_view_if_needed(); pg.wait_for_timeout(1100); pg.locator(sec).screenshot(path=f"{OUT}/{name}.png")
     pg.locator("#faq details").first.click(); pg.wait_for_timeout(300)
     print("health pill:", pg.inner_text("#health"))
-    pg.locator("#nav .btn.primary").click(); pg.wait_for_url("**/app/**"); pg.wait_for_timeout(1200)
+    pg.evaluate("window.scrollTo(0,0)"); pg.wait_for_timeout(400)
+    pg.locator("#nav .btn.dark").click(); pg.wait_for_url("**/app/**"); pg.wait_for_timeout(1500)
     print("open app ->", pg.url)
 
     # ---------- app ----------
@@ -36,6 +32,7 @@ with sync_playwright() as p:
     pg.click("#useDemo"); pg.wait_for_selector("#preview:not([hidden])"); pg.wait_for_timeout(500)
     print("preview warning:", pg.inner_text("#preview .pv-h").replace("\n", " | "))
     pg.click("#runBtn"); pg.wait_for_selector("#timeline li.start", timeout=15000); pg.wait_for_timeout(2500)
+    print("app canvases while running (bots+orb+beam):", pg.locator("canvas").count())
     pg.screenshot(path=f"{OUT}/22-app-running.png")
     pg.wait_for_selector("#rcDot:not([hidden])", timeout=120000); pg.wait_for_timeout(1500)
     pg.screenshot(path=f"{OUT}/23-app-answer.png")

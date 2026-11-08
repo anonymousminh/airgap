@@ -1,0 +1,8 @@
+{
+  "name": "airgap-fx",
+  "private": true,
+  "description": "Bundles libraries.dev components (MIT) for the plain-JS pages: web/fx.bundle.js",
+  "scripts": { "build": "esbuild fx.jsx --bundle --minify --format=iife --jsx=automatic --define:process.env.NODE_ENV='\"production\"' --outfile=../web/fx.bundle.js" },
+  "dependencies": { "react": "^18.3.1", "react-dom": "^18.3.1", "border-beam": "^1.4.1", "thinking-orbs": "^0.3.2", "bot-avatars": "^0.2.2" },
+  "devDependencies": { "esbuild": "^0.25.0" }
+}

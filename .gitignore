@@ -7,3 +7,5 @@ signing.key
 .DS_Store
 node_modules/
 PROJECT_OVERVIEW.md
+deliverables/
+fx/node_modules/

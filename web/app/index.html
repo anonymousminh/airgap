@@ -42,7 +42,7 @@
     <section class="view" id="view-analyst">
       <div class="work">
         <div class="col-l">
-          <form id="runForm" class="card glow composer">
+          <form id="runForm" class="card glow composer"><div class="beamhost" id="composerBeam"></div>
             <div class="card-h"><span class="num-badge">1</span> Dataset</div>
             <label class="drop" id="drop" for="file">
               <input type="file" id="file" accept=".csv,text/csv" hidden>
@@ -66,7 +66,7 @@
 
         <div class="col-r">
           <div class="card glow runcard">
-            <div class="card-h"><span class="num-badge">3</span> Live run <span class="elapsed mono" id="elapsed"></span></div>
+            <div class="card-h"><span class="num-badge">3</span> Live run <span class="agents" id="agents"><span class="ag" title="Planner · qwen3.8-27b"><span id="botPlan"></span></span><span class="ag" title="Explainer · glm-5.3"><span id="botExp"></span></span><span id="runOrb"></span></span> <span class="elapsed mono" id="elapsed"></span></div>
             <ol id="timeline" class="steps"></ol>
             <div class="term"><div class="term-bar"><i></i><i></i><i></i><span class="mono mute">sandbox · stdout</span></div>
               <pre id="stdout" class="term-body"></pre></div>
@@ -133,5 +133,6 @@
 </aside>
 <script src="/shared.js"></script>
 <script src="/app/app.js"></script>
+<script src="/fx.bundle.js" defer></script>
 </body>
 </html>

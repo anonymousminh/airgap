@@ -78,3 +78,8 @@
 .resultcard .seal{width:92px;height:92px}.resultcard .radius{font-size:44px}.resultcard .seal-col{padding:14px 10px}
 .resultcard table.kv td:first-child{width:40%}.resultcard table.kv td{padding:6px 8px}
 @media(max-width:700px){.resultcard .cert{grid-template-columns:1fr}}
+
+/* libraries.dev components: status, not decoration */
+.agents{display:inline-flex;align-items:center;gap:6px;margin-left:12px}.ag{display:inline-grid;place-items:center;width:34px;height:34px}.agents canvas{display:block}
+#runOrb{display:inline-grid;place-items:center;width:34px;height:34px;margin-left:4px}
+.beamhost{position:absolute;inset:0;pointer-events:none;z-index:3;border-radius:24px}

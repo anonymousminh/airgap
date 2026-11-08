@@ -102,7 +102,8 @@ python3 tests/ui_journey.py http://127.0.0.1:8000 /tmp/shots   # Playwright: lan
 ```
 runner/   DockerRunner (policy → inspect → destroy), six attack cartridges, sandbox image
 server/   FastAPI app, run state machine, Vultr inference client, Number Guard, receipts + ledger
-web/      landing page (/) and workspace app (/app/): dependency-free HTML/CSS/JS, no build step
+web/      landing page (/) and workspace app (/app/): plain HTML/CSS/JS; fx.bundle.js is the only built file
+fx/       source of fx.bundle.js: bridges libraries.dev components (border-beam, thinking-orbs, bot-avatars) into the plain-JS pages (`cd fx && npm i && npm run build`)
 deploy/   systemd unit, Caddyfile
 tests/    attack suite, cross-language receipt check, UI journey
 demo/     sales_q3.csv (includes a poisoned cell)
@@ -118,5 +119,9 @@ demo/     sales_q3.csv (includes a poisoned cell)
 - The sandbox image inherits public, non-secret variables (e.g. `GPG_KEY` from the Python base image); the secret-harvest check allowlists exactly those.
 - Run state and SSE history are in memory (single worker); receipts persist in SQLite.
 - Public demo is rate-limited per IP (12 analyses and 36 attack replays per 10 minutes) and capped (5 MB uploads, 2 concurrent sandboxes).
+
+## Credits
+
+The animated status components (border beam, thinking orbs, bot avatars) are the open-source [libraries.dev](https://libraries.dev) packages `border-beam`, `thinking-orbs` and `bot-avatars` (MIT, by Jakub Antalik), bundled with React 18 (MIT). The page layouts take inspiration from libraries.dev and checkoutpage.com; no assets or copy are reused.
 
 MIT licensed. See [LICENSE](LICENSE).

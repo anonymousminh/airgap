@@ -188,7 +188,7 @@ $("#runForm").onsubmit = async ev => {
   if (!q) return toast("Type a question first.");
   location.hash = "#/analyst"; activeHist = null; resetResult(); resetSteps(false); firstOut = true;
   let codeTxt = "", outTxt = "", answerTxt = "", nums = [];
-  $("#runBtn").disabled = true;
+  $("#runBtn").disabled = true; fxBeam(true);
   const t0 = performance.now(); clearInterval(timer);
   timer = setInterval(() => $("#elapsed").textContent = ((performance.now() - t0) / 1000).toFixed(1) + "s", 100);
   const fd = new FormData(); fd.append("file", chosen); fd.append("question", q);
@@ -197,7 +197,7 @@ $("#runForm").onsubmit = async ev => {
   const { run_id } = await res.json();
   es = new EventSource(`/api/run/${run_id}/events`);
   const on = (t, f) => es.addEventListener(t, e => f(JSON.parse(e.data)));
-  on("stage", e => { const li = $(`#timeline li[data-s="${e.stage}"]`); if (li) li.className = e.status; setProgress(e.stage, e.status); });
+  on("stage", e => { fxStage(e.stage, e.status); const li = $(`#timeline li[data-s="${e.stage}"]`); if (li) li.className = e.status; setProgress(e.stage, e.status); });
   on("code", e => { codeTxt = e.code; $("#code").textContent = e.code; $("#stdout").textContent = ""; outTxt = ""; firstOut = false; });
   on("stdout", e => { if (firstOut) { $("#stdout").textContent = ""; firstOut = false; } outTxt += "$ " + e.text + "\n"; $("#stdout").textContent = outTxt; $("#stdout").scrollTop = 1e6; });
   on("retry", e => { $("#stdout").textContent += `! attempt ${e.attempt} failed — asking the planner to fix it\n`; });
@@ -211,7 +211,7 @@ $("#runForm").onsubmit = async ev => {
   on("error", e => fail(e.message));
   es.onerror = () => { if (es && es.readyState === 2) finish(); };
 };
-function finish() { if (es) es.close(); es = null; clearInterval(timer); $("#runBtn").disabled = false; }
+function finish() { fxBeam(false); fxIdle(); if (es) es.close(); es = null; clearInterval(timer); $("#runBtn").disabled = false; }
 function fail(msg) { finish(); toast(msg); showTab("answer"); $("#answer").innerHTML = `<span class="num bad">Run failed</span> ${esc(msg)}`; $("#guardChip").textContent = ""; $("#guardChip").className = "guard"; }
 
 /* ---------- attack lab ---------- */
@@ -281,4 +281,16 @@ async function loadLedger() {
 $("#refreshLedger").onclick = loadLedger; $("#pasteReceipt").onclick = () => openTamper(null);
 
 /* ---------- init ---------- */
-resetResult(); resetSteps(false); renderHistory(); route();
+resetResult(); resetSteps(false); renderHistory(); route(); fxIdle();
+
+/* ---------- libraries.dev components (MIT): border-beam, thinking-orbs, bot-avatars. All optional. ---------- */
+function fx(fn) { try { if (window.AirgapFX) fn(window.AirgapFX); else addEventListener("load", () => window.AirgapFX && fn(window.AirgapFX), { once: true }); } catch (e) { /* app works without the effects */ } }
+const ORB = { PROFILE: "searching", PLAN: "solving", DISPATCH: "connecting", EXECUTE: "working", VERIFY: "composing", DESTROY: "breathing", SIGN: "breathing" };
+function fxIdle() { fx(F => { F.orb($("#runOrb"), { state: "breathing", size: 32, theme: "dark" }); F.bot($("#botPlan"), { type: "clover", size: 32, state: "sleeping" }); F.bot($("#botExp"), { type: "ghost", size: 32, state: "sleeping" }); F.beam($("#composerBeam"), { active: false, radius: 24 }); }); }
+function fxStage(stage, status) {
+  if (status !== "start") return;
+  fx(F => { F.orb($("#runOrb"), { state: ORB[stage] || "working", size: 32, theme: "dark" });
+    F.bot($("#botPlan"), { type: "clover", size: 32, state: stage === "PLAN" ? "working" : "sleeping" });
+    F.bot($("#botExp"), { type: "ghost", size: 32, state: stage === "VERIFY" ? "working" : "sleeping" }); });
+}
+function fxBeam(active) { fx(F => F.beam($("#composerBeam"), { active, radius: 24, duration: 2.2, strength: 0.9, theme: "dark" })); }
